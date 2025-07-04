@@ -32,7 +32,7 @@ export function Footer() {
           <ul className="space-y-3">
             {['Branding', 'U/UX Design', 'Graphic Designing', 'Web Developemnt', 'Mobile App Development'].map((item) => (
               <li key={item}>
-                <a href="#" className="hover:text-emerald-400 transition-colors">{item}</a>
+                <a href="#?" className="hover:text-emerald-400 transition-colors">{item}</a>
               </li>
             ))}
           </ul>
@@ -61,9 +61,9 @@ export function Footer() {
         <div className="col-span-2 md:col-span-1 lg:col-span-2">
           <h3 className="text-lg font-medium mb-4 text-gray-300">Contact</h3>
           <div className="space-y-4">
-            <p className="text-sm">anthonyanso@outlook.com</p>
+            <p className="text-sm"><a href="mailto:anthonyanso@outlookcom">anthonyanso@outlook.com</a></p>
             <p className="text-sm">1 Mission Road, GRA, Onitsha, Anambra State. Nigeria</p>
-            <p className="text-sm">(+234) 907 345 1545</p>
+            <p className="text-sm"><a href="tel:09073451545">(+234) 907 345 1545</a></p>
           </div>
         </div>
 

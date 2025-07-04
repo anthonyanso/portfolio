@@ -8,7 +8,7 @@ const faqs = [
   {
     question: "What technologies do you specialize in?",
     answer:
-      "I specialize in JavaScript, React, Next.js, TypeScript, Node.js, and modern CSS frameworks like Tailwind CSS.",
+      'I specialize in JavaScript, Laravel, React, React Native, Next.js, TypeScript, Node.js, and modern CSS frameworks like Tailwind CSS.',
   },
   {
     question: "How do you stay updated with the latest tech trends?",
@@ -18,7 +18,7 @@ const faqs = [
   {
     question: "Can you work with backend technologies?",
     answer:
-      "Yes, I have experience with Node.js, Express, and integrating RESTful APIs and databases like MongoDB and PostgreSQL.",
+      'Yes, I have experience with Node.js, Express, and integrating RESTful APIs and databases like MongoDB and PostgreSQL, as well as working with PHP.',
   },
   {
     question: "Are you open to remote or freelance opportunities?",
