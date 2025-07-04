@@ -100,9 +100,9 @@ export const ContactSection = () => {
           <div className="bg-gradient-to-r from-emerald-400 to-sky-500 rounded-xl p-8 md:p-10 backdrop-blur-sm">
             <div className="flex flex-col md:flex-row justify-between items-center gap-8">
               <div>
-                <h2 className="text-2xl md:text-3xl font-bold text-gray-900">Let's Build Something Great</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-gray-900">Let&apos;s Build Something Great</h2>
                 <p className="text-gray-600 mt-2">
-                  Have a project in mind? Reach out and let's make it happen.
+                  Have a project in mind? Reach out and let&apos;s make it happen.
                 </p>
               </div>
               <button
