@@ -1,6 +1,12 @@
+"use client";
 import * as React from 'react';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 export function Footer() {
+  const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+
   const socialMediaLinks = [
     { name: 'Twitter', href: 'https://x.com/thomas_smith247' },
     { name: 'LinkedIn', href: 'https://www.linkedin.com/in/anthony-anso/' },
@@ -10,10 +16,35 @@ export function Footer() {
     { name: 'Github', href: 'https://github.com/anthonyanso' }
   ];
 
+  const handleSubscribe = async () => {
+    if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+      toast.error('Please enter a valid email address.');
+      return;
+    }
+    setLoading(true);
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        toast.success(data.message || 'Subscribed successfully!');
+        setEmail('');
+      } else {
+        toast.error(data.error || data.message || 'Subscription failed.');
+      }
+    } catch (err) {
+      toast.error('Something went wrong.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <footer className="bg-[#0A0A0A] text-white pt-16 pb-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
-
         {/* Navigation Column */}
         <div className="col-span-1">
           <h3 className="text-lg font-medium mb-4 text-gray-300">Navigation</h3>
@@ -25,7 +56,6 @@ export function Footer() {
             ))}
           </ul>
         </div>
-
         {/* Services Column */}
         <div className="col-span-1">
           <h3 className="text-lg font-medium mb-4 text-gray-300">Services</h3>
@@ -37,7 +67,6 @@ export function Footer() {
             ))}
           </ul>
         </div>
-
         {/* Social Media Column */}
         <div className="col-span-1">
           <h3 className="text-lg font-medium mb-4 text-gray-300">Social Media</h3>
@@ -56,7 +85,6 @@ export function Footer() {
             ))}
           </ul>
         </div>
-
         {/* Contact Information */}
         <div className="col-span-2 md:col-span-1 lg:col-span-2">
           <h3 className="text-lg font-medium mb-4 text-gray-300">Contact</h3>
@@ -66,7 +94,6 @@ export function Footer() {
             <p className="text-sm"><a href="tel:09073451545">(+234) 907 345 1545</a></p>
           </div>
         </div>
-
         {/* Newsletter */}
         <div className="col-span-2 md:col-span-4 lg:col-span-5 mt-8">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
@@ -74,28 +101,43 @@ export function Footer() {
               <h3 className="text-2xl font-medium mb-2">Be Creative,</h3>
               <h3 className="text-2xl font-medium">Be Solutive</h3>
             </div>
-
             <div className="w-full md:w-auto">
-              <div className="relative max-w-md">
+              <form
+                className="relative max-w-md flex"
+                onSubmit={e => {
+                  e.preventDefault();
+                  handleSubscribe();
+                }}
+                autoComplete="off"
+              >
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className="w-full bg-transparent border-b border-gray-600 py-2 px-1 focus:outline-none focus:border-emerald-400 transition-colors"
+                  className="flex-1 rounded-l-full bg-[#18181b] border-none py-3 px-5 text-white placeholder-gray-400  focus:outline-none transition-all shadow-lg shadow-black/10"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  disabled={loading}
+                  style={{ minWidth: 0 }}
                 />
                 <button
-                  type="button"
-                  className="absolute right-0 top-1/2 -translate-y-1/2 text-emerald-400 hover:text-white transition-colors"
-                  title="Subscribe"
-                  aria-label="Subscribe"
+                  type="submit"
+                  className="rounded-r-full bg-gradient-to-r from-emerald-400 to-blue-500 hover:from-blue-500 hover:to-emerald-400 text-white font-semibold px-6 py-3 transition-all duration-200 shadow-lg shadow-black/10 focus:outline-none disabled:opacity-60 disabled:cursor-not-allowed"
+                  disabled={loading}
                 >
-                  Subscribe
+                  {loading ? (
+                    <span className="flex items-center gap-2">
+                      <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>
+                      Subscribing...
+                    </span>
+                  ) : (
+                    'Subscribe'
+                  )}
                 </button>
-              </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
-
       {/* Copyright */}
       <div className="border-t border-gray-800 mt-12 pt-8 text-center text-sm text-gray-500">
         <p>&copy; {new Date().getFullYear()} All rights reserved</p>
@@ -103,5 +145,3 @@ export function Footer() {
     </footer>
   );
 }
-
-
